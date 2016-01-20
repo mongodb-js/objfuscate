@@ -64,7 +64,7 @@ module.exports = function(args, done) {
 
   var input;
   // open the file
-  fs.readFile(args['<jsonfile>'], 'utf-8', (err, data) => {
+  fs.readFile(args['<jsonfile>'], 'utf-8', function(err, data) {
     if (err) {
       if (err.code !== 'ENOENT') {
         throw err;
