@@ -2,13 +2,12 @@
 
 Great to have you here. These are a few ways you can help make this project better:
 
-- [Implement a #starter feature](http://github.com/mongodb-js/object-redact/labels/starter)
+- [Implement a #starter feature](http://github.com/mongodb-js/objfuscate/labels/starter)
 - Add an example to `README.md`
-- [Say hello on Gitter](https://gitter.im/mongodb-js/object-redact)
 
 ## Workflow
 
-1. [Fork the repository on GitHub](http://github.com/mongodb-js/object-redact)
+1. [Fork the repository on GitHub](http://github.com/mongodb-js/objfuscate)
 1. Create a new branch with a name that briefly describes your change
 1. Implement your feature or bug fix
 1. Add new cases to `./test/index.test.js` and run them with `npm test`
@@ -22,7 +21,7 @@ maintainers is less than 24 hours.
 ## Bugs
 
 You can report new bugs by
-[creating a new issue](http://github.com/mongodb-js/object-redact/issues).
+[creating a new issue](http://github.com/mongodb-js/objfuscate/issues).
 Please include as much information as possible about your environment
 ("I am using node.js v 0.12.0 on OSX Mavericks").  Actual code is always
 more valuable than an explanation, so please include a link to a GitHub

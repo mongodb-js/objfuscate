@@ -1,12 +1,8 @@
 Usage:
-   object-redact <command> [<args>...]
-   object-redact --version
-   object-redact -h | --help
+   objfuscate [options] <jsonfile>
+   objfuscate --version
+   objfuscate -h | --help
 
 Options:
-   -h, --help     Print this help screen
-
-Available commands are:
-  demo    a demo command to show how object-redact works.
-
-See 'object-redact help <command>' for more information on a specific command.
+   -h, --help           Print this help screen
+   -k, --include-keys   Obfuscate keys as well 

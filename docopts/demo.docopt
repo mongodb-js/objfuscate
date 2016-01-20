@@ -1,7 +1,0 @@
-Usage:
-   object-redact demo [options]
-   object-redact demo -h | --help
-
-Options:
-  -h, --help            Print this help screen
-  -v, --verbose         Print more verbose information

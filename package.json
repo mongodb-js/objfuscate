@@ -1,28 +1,29 @@
 {
-  "name": "object-redact",
+  "name": "objfuscate",
   "description": "Redacts Javascript objects",
   "author": "Thomas Rueckstiess",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "check": "jshint",
     "test": "mocha",
     "ci": "npm run check && npm test"
   },
   "bin": {
-    "object-redact": "./bin/object-redact.js"
+    "objfuscate": "./bin/objfuscate.js"
   },
-  "homepage": "http://mongodb-js.github.io/object-redact",
+  "homepage": "http://mongodb-js.github.io/objfuscate",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mongodb-js/object-redact.git"
+    "url": "git://github.com/mongodb-js/objfuscate.git"
   },
   "dependencies": {
     "async": "^1.2.1",
-    "clui": "^0.3.1",
     "cli-color": "^1.0.0",
+    "clui": "^0.3.1",
     "debug": "^2.2.0",
     "docopt": "^0.6.2",
-    "lodash": "^3.9.3"
+    "lodash": "^3.10.1",
+    "mongodb-extended-json": "^1.6.1"
   },
   "devDependencies": {
     "jshint": "^2.6.3",
