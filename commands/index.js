@@ -33,7 +33,7 @@ module.exports = function(args, done) {
       if (args['--include-keys']) {
         mapped = _.mapKeys(mapped, function(val, key) {
           return cachedReplacement(key);
-        });        
+        });
       }
       return mapped;
     }
@@ -78,7 +78,12 @@ module.exports = function(args, done) {
     } else {
       input = JSON.parse(data);
     }
-    var output = JSON.stringify(walkObject(input));
+    var output;
+    if (args['--pretty']) {
+      output = JSON.stringify(walkObject(input), null, ' ');
+    } else {
+      output = JSON.stringify(walkObject(input));
+    }
     console.log(output);
     done(null, output);
   });

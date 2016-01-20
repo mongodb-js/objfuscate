@@ -5,4 +5,5 @@ Usage:
 
 Options:
    -h, --help           Print this help screen
-   -k, --include-keys   Obfuscate keys as well 
+   -k, --include-keys   Obfuscate keys as well
+   -p, --pretty         Print the result with line breaks and indentation
