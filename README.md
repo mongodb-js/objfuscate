@@ -42,6 +42,30 @@ objfuscate '{"my": "secret"}'
 Note: You need to wrap the JSON string in single quotes and you need to write
 proper JSON, which includes double quotes around key names and strings.
 
+## Value Obfuscation
+
+Currently, only the following values are replaced:
+
+- Strings
+- Numbers
+- Booleans
+
+Strings use a cache so that each string is replaced with the same random string,
+which is created when a particular string is first encountered. This ensures
+that the dataset has the same cardinality as the original.
+
+## Key Obfuscation
+
+To replace object keys as well, use the `-k` or `--include-keys` option like so:
+
+```
+objfuscate -k ./paranoid.json
+objfuscate --include-keys ./paranoid.json
+```
+
+They key cache is the same as the value cache for strings (see above). A key
+named `"foo"` is replaced with the same new string as the value `"foo"`.
+
 ## License
 
 Apache 2.0
