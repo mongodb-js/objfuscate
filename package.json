@@ -1,0 +1,38 @@
+{
+  "name": "object-redact",
+  "description": "Redacts Javascript objects",
+  "author": "Thomas Rueckstiess",
+  "version": "0.0.0",
+  "scripts": {
+    "check": "jshint",
+    "test": "mocha",
+    "ci": "npm run check && npm test"
+  },
+  "bin": {
+    "object-redact": "./bin/object-redact.js"
+  },
+  "homepage": "http://mongodb-js.github.io/object-redact",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mongodb-js/object-redact.git"
+  },
+  "dependencies": {
+    "async": "^1.2.1",
+    "clui": "^0.3.1",
+    "cli-color": "^1.0.0",
+    "debug": "^2.2.0",
+    "docopt": "^0.6.2",
+    "lodash": "^3.9.3"
+  },
+  "devDependencies": {
+    "jshint": "^2.6.3",
+    "mocha": "^2.2.1",
+    "pre-commit": "^1.0.6",
+    "which": "^1.1.1"
+  },
+  "preferGlobal": true,
+  "license": "Apache-2.0",
+  "precommit": [
+    "check"
+  ]
+}

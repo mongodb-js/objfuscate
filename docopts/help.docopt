@@ -1,0 +1,10 @@
+Usage:
+   object-redact help [--help] [<command>]
+
+Options:
+   -h, --help     Print this help screen
+
+Available commands are:
+   demo       Demo command to demonstrate task manager usage
+
+See 'object-redact help <command>' for more information on a specific command.
