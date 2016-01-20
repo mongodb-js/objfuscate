@@ -1,8 +1,15 @@
 'use strict';
 
 var fs = require('fs');
-var cache = {};
+var es = require('event-stream');
 var _ = require('lodash');
+
+var cache = {};
+
+var log = es.through(function(data) {
+  debug('data', data);
+  this.emit('data', data);
+});
 
 var debug = require('debug')('objfuscate:index');
 
@@ -17,13 +24,14 @@ module.exports = function(args, done) {
     return text;
   }
 
-  var cachedReplacement = function(str) {
-    return cache[str] || (cache[str] = randomString(str.length));
-  }
-
   var randomFixedInteger = function(length) {
     return Math.floor(Math.pow(10, length-1) + Math.random()
       * (Math.pow(10, length) - Math.pow(10, length-1) - 1));
+  }
+
+  var cachedReplacement = function(val) {
+    return cache[val] || (cache[val] = _.isString(val) ?
+      randomString(val.length) : randomFixedInteger(String(val).length));
   }
 
   var walkObject = function(val, key) {
@@ -43,19 +51,9 @@ module.exports = function(args, done) {
       return _.map(val, walkObject);
     }
 
-    // strings: replace with cached equal length random string
-    if (_.isString(val)) {
+    // strings and numbers: replace with cached equal length random string
+    if (_.isString(val) || _.isNumber(val)) {
       return cachedReplacement(val);
-    }
-
-    // numbers: replace with equal length random number
-    if (_.isNumber(val)) {
-      return randomFixedInteger(String(val).length);
-    }
-
-    // boolean: replace with random boolean
-    if (_.isBoolean(val)) {
-      return Math.random() < 0.5;
     }
 
     // else: return value
@@ -63,6 +61,8 @@ module.exports = function(args, done) {
   }
 
   var input;
+  var output;
+
   // open the file
   fs.readFile(args['<jsonfile>'], 'utf-8', function(err, data) {
     if (err) {
@@ -70,21 +70,34 @@ module.exports = function(args, done) {
         throw err;
       }
       // can't find file, try interpreting as json
-      try {
-        input = JSON.parse(args['<jsonfile>']);
-      } catch (e) {
-        throw e;
-      }
-    } else {
+      data = args['<jsonfile>'];
+    }
+    try {
       input = JSON.parse(data);
+      if (args['--pretty']) {
+        output = JSON.stringify(walkObject(input), null, ' ');
+      } else {
+        output = JSON.stringify(walkObject(input));
+      }
+      console.log(output);
+      done(null, output);
+    } catch (e) {
+      if (e.message.match(/Unexpected token {/)) {
+        // looks like a newline delimited JSON file, double check, then
+        // build stream pipeline.
+        if (!data.match(/\}\s*\n\s*\{/m)) {
+          throw e;
+        }
+        fs.createReadStream(args['<jsonfile>'], {flags: 'r', encoding: 'utf-8'})
+          .pipe(es.split())
+          .pipe(es.parse())
+          .pipe(es.mapSync(walkObject))
+          .pipe(es.stringify())
+          .pipe(process.stdout)
+          .on('end', function() {
+            return done(null);
+          });
+      }
     }
-    var output;
-    if (args['--pretty']) {
-      output = JSON.stringify(walkObject(input), null, ' ');
-    } else {
-      output = JSON.stringify(walkObject(input));
-    }
-    console.log(output);
-    done(null, output);
   });
 }

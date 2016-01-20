@@ -35,7 +35,7 @@ This will write the obfuscated JSON to stdout. In most cases, you will want to s
 objfuscate ./sensitive.json > obfuscated.json
 ```
 
-Note: The file needs to be a single JSON object, or an array of JSON objects. One JSON object per line without surrounding array brackets will not work. If you export data from MongoDB with `mongoexport`, use the `--jsonArray` option to create an array of objects.
+Note: The file can be a single JSON object, a newline-delimited list of JSON objects (for example when using `mongoexport` **without** the `--jsonArray` option) or an array of JSON objects (for example when using `mongoexport` **with** the `--jsonArray` option). The output format matches the input format.
 
 #### Use with JSON string
 
@@ -43,15 +43,14 @@ Note: The file needs to be a single JSON object, or an array of JSON objects. On
 objfuscate '{"my": "secret"}'
 ```
 
-Note: You need to wrap the JSON string in single quotes and you need to write proper JSON, which includes double quotes around key names and strings.
+Note: The JSON string must be wrapped in single quotes and you need to write proper JSON, which includes double quotes around key names and strings.
 
 ## Value Obfuscation
 Currently, only the following values are replaced:
 - Strings
 - Numbers
-- Booleans
 
-Strings use a cache so that each string is replaced with the same random string, which is created when a particular string is first encountered. This ensures that the dataset has the same cardinality as the original.
+Values use a cache so that each value is replaced with the same random value, which is created when a particular value is first encountered. This ensures that the dataset has the same cardinality as the original.
 
 ## Key Obfuscation
 To replace object keys as well, use the `-k` or `--include-keys` option like so:
@@ -61,9 +60,12 @@ objfuscate -k ./paranoid.json
 objfuscate --include-keys ./paranoid.json
 ```
 
-They key cache is the same as the value cache for strings (see above). A key named `"foo"` is replaced with the same new string as the value `"foo"`.
+They key cache is the same as the value cache (see above). A key named `"foo"` is replaced with the same new string as the value `"foo"`.
 
 ## Pretty output
+
+_(Only applicable if the input file was a single JSON object, or an array of JSON objects. Newline-delimited JSON objects are not prettified.)_
+
 Per default, the output is written compressed into a single line without whitespace. If you want the output to be nicely formatted with line breaks, whitespace and indentations, use the `-p` or `--pretty` option.
 
 ```

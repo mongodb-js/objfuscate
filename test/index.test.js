@@ -154,4 +154,47 @@ describe('objfuscate fixtures', function() {
       assert.equal(input.length, 4);
     });
   });
+
+
+  describe('json string', function() {
+    var input = {"foo": "bar"};
+    var output;
+
+    before(function(done) {
+      run('-k \'{"foo": "bar"}\'', function(err, stdout) {
+        assert.ifError(err);
+        output = JSON.parse(stdout);
+        done();
+      });
+    });
+
+    it('should correctly redact a json string provided on the command line', function() {
+      assert.ok(_.isPlainObject(output));
+      var keys = _.keys(output);
+      assert.equal(keys.length, 1);
+      assert.ok(keys[0] !== 'foo');
+      assert.ok(output[keys[0]] !== 'bar');
+    });
+  });
+
+  describe('newline delimited json documents', function() {
+    var input;
+    var stdout;
+
+    before(function(done) {
+      var fixturePath = path.join(TEST_DIR, 'fixture3.json');
+      input = fs.readFileSync(fixturePath, {encoding: 'utf-8'});
+      run(fixturePath, function(err, res) {
+        assert.ifError(err);
+        stdout = res;
+        done();
+      });
+    });
+
+    it('should correctly redact newline delimited json documents', function() {
+      var lines = _.filter(stdout.split('\n'));
+      assert.equal(lines.length, 4);
+      assert.ok(lines[0] !== input.split('\n')[0]);
+    });
+  });
 });
