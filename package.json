@@ -4,7 +4,7 @@
   "author": "Thomas Rueckstiess",
   "version": "0.2.0",
   "scripts": {
-    "check": "jshint",
+    "check": "mongodb-js-precommit",
     "test": "mocha",
     "ci": "npm run check && npm test"
   },
@@ -27,9 +27,10 @@
     "mongodb-extended-json": "^1.6.1"
   },
   "devDependencies": {
-    "jshint": "^2.6.3",
+    "eslint-config-mongodb-js": "^2.2.0",
     "mocha": "^2.2.1",
-    "pre-commit": "^1.0.6",
+    "mongodb-js-precommit": "^0.2.9",
+    "pre-commit": "^1.1.2",
     "which": "^1.1.1"
   },
   "preferGlobal": true,
