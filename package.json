@@ -17,7 +17,7 @@
     "url": "git://github.com/mongodb-js/objfuscate.git"
   },
   "dependencies": {
-    "async": "^2.1.2",
+    "async": "2.1.4",
     "cli-color": "^1.0.0",
     "clui": "^0.3.1",
     "debug": "^2.2.0",
