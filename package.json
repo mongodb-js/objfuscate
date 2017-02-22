@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "async": "^2.1.2",
-    "cli-color": "^1.0.0",
+    "cli-color": "^1.2.0",
     "clui": "^0.3.1",
     "debug": "^2.2.0",
     "docopt": "^0.6.2",
